@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Important Question 👀</title>
+
+<!-- CONFETTI LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9ec4,#ffd6e7);
+    font-family:'Segoe UI', sans-serif;
+    overflow:hidden;
+}
+
+.container{
+    text-align:center;
+}
+
+h1{
+    font-size:3rem;
+    color:white;
+    margin-bottom:40px;
+}
+
+button{
+    padding:15px 30px;
+    font-size:20px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+#yes{
+    background:#ff4d6d;
+    color:white;
+    margin-right:15px;
+}
+
+#yes:hover{
+    transform:scale(1.1);
+}
+
+#no{
+    background:white;
+}
+
+/* rejection popup */
+
+.popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    padding:30px;
+    border-radius:16px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+    display:none;
+    text-align:center;
+}
+
+/* easter egg button */
+
+#easterEggBtn{
+    position:fixed;
+    bottom:10px;
+    left:10px;
+    font-size:12px;
+    color:white;
+    opacity:0.6;
+    cursor:pointer;
+}
+
+#easterEggBtn:hover{
+    opacity:1;
+}
+
+/* easter egg popup */
+
+#easterEggPopup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    padding:20px;
+    border-radius:14px;
+    text-align:center;
+    display:none;
+    box-shadow:0 10px 40px rgba(0,0,0,0.25);
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+    <h1> Disha, Will you be my Valentine? ❤️</h1>
+
+    <button id="yes">Yes 😍</button>
+    <button id="no">No 🙃</button>
+</div>
+
+
+<!-- rejection popup -->
+<div class="popup" id="popup">
+    <h2>Why would you say no? 🥺</h2>
+    <p>That was not part of the plan...</p>
+    <button onclick="closePopup()">ok fine 😔</button>
+</div>
+
+
+<!-- easter egg -->
+<div id="easterEggBtn">free chocolate</div>
+
+<div id="easterEggPopup">
+    <img src="https://i.imgur.com/2NWKpoe.jpeg" width="250">
+    <p>hehe told ya don't click this 😌</p>
+    <button onclick="closeEgg()">okay fine</button>
+</div>
+
+
+
+<script>
+
+let noCount = 0;
+
+const noBtn = document.getElementById("no");
+const popup = document.getElementById("popup");
+
+// moving NO button
+noBtn.addEventListener("mouseover", () => {
+
+    noCount++;
+
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    if(noCount > 5){
+        popup.style.display = "block";
+    }
+});
+
+function closePopup(){
+    popup.style.display="none";
+}
+
+
+// YES BUTTON — CONFETTI + SUCCESS PAGE
+
+document.getElementById("yes").addEventListener("click", () => {
+
+    confetti({
+        particleCount:200,
+        spread:120,
+        origin:{y:0.6}
+    });
+
+    setTimeout(()=>{
+
+        document.body.innerHTML = `
+        <div style="
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+            background:linear-gradient(135deg,#ff4d6d,#ff758f);
+            color:white;
+            font-family:sans-serif;
+            text-align:center;
+        ">
+            <h1>YAAAAAYYY ❤️❤️❤️</h1>
+            <h2>You just made me the happiest person alive.</h2>
+            <p>Now get ready for bad jokes, good food, and someone who will annoy you forever 😌</p>
+        </div>
+        `;
+
+    },600);
+});
+
+
+// EASTER EGG
+
+const egg = document.getElementById("easterEggBtn");
+const eggPopup = document.getElementById("easterEggPopup");
+
+egg.addEventListener("click", () => {
+    eggPopup.style.display = "block";
+});
+
+function closeEgg(){
+    eggPopup.style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
